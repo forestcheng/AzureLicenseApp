@@ -458,7 +458,12 @@ namespace ContactsList.Controllers
             }
 
             // check userVersion
-            if (!licInfo.SoftVersion.Contains(lics[8])) {
+            var vs = licInfo.SoftVersion.Split('.');
+            int plus = int.Parse(vs[1]) + 1;
+            Version iv = new Version(vs[0] + "." + plus);
+            Version uv = new Version(lics[8]);
+            //!licInfo.SoftVersion.Contains(lics[8])
+            if (uv >= iv) {
                 result = CommandResult.InvalidVersion;
                 return result;
             }
